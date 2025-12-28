@@ -1,5 +1,5 @@
-# Warning: This script default options only download textures from the "Material" category on ambientcg.com
-# If you want to download textures from other category, check the https://ambientCG.com/api/v2/downloads_csv file and change the options accordingly
+# Warning: This script default options download 2K-PNG textures and exclude a lot of things.
+# If you want to customize, check the https://ambientCG.com/api/v2/downloads_csv file and change the code to your liking. The .csv file is very simple.
 
 import csv
 import os
@@ -9,8 +9,13 @@ import requests # Install with: pip install requests
 resolution = "2K" # Valid options: "1K", "2K", "4K", "8K"
 file_format = "PNG" # Valid options: "JPG", "PNG"
 match_attr = f"{resolution}-{file_format}" # Exact matching, avoid unwanted matching behaviour (Like matching 2K also include 12K, 24K, 32K, etc.)
-# Exclude rows with these values in "assetId", to download textures in the "Material" category only
-exclude_values = ["HDRI", "Substance", "Set", "3D", "Backdrop", "Brush", "Terrain"]
+
+# Exclude rows with these values in "assetId" (it's the same as the name of the asset in the web version)
+# My list
+exclude_values = ["HDRI", "Substance", "Set", "3D", "Backdrop", "Brush", "Terrain", "Pathway", "Leaf", "Sticker",
+                   "End", "Grate", "Payment", "Sign", "Facade", "Imperfections", "Painting", "Pizza", "Rails"]
+
+# exclude_values = ["None"] # Use this and remove the line above if you want to exclude nothing
 
 download_folder_name = "downloaded_textures" # If you change this, you should also update the .gitignore
 ## ======= ##
@@ -44,7 +49,7 @@ with open(api_file, "r", encoding="utf-8", newline="") as file:
         if any(excluded in asset_id for excluded in exclude_values):
             continue
 
-        if match_attr not in attr:
+        if match_attr != attr: # Exact matching, avoid unwanted matching behaviour
             continue
 
         output = os.path.join(download_folder_name, link.split("file=")[1])

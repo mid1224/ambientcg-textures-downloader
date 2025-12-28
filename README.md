@@ -1,6 +1,8 @@
 # AmbientCG Textures Downloader
 
-A simple Python script to download all textures from the Material category on ambientcg.com with some customization. By default, it downloads **2K PNG Materials** from the **Material** category only, excluding all other categories like HDRIs, 3D models, etc.
+A simple Python script to bulk download textures from ambientcg.com with some customization. 
+
+By default, it downloads **2K PNG Materials** and excludes "HDRI", "Substance", "Set", "3D", "Backdrop", "Brush", "Terrain", "Pathway", "Leaf", "Sticker", "End", "Grate", "Payment", "Sign", "Facade", "Imperfections", "Painting", "Pizza", "Rails". **(You can customize this)**
 
 ## Setup & Usage
 
